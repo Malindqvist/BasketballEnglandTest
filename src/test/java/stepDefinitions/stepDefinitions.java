@@ -48,7 +48,7 @@ public class stepDefinitions {
 
     }
 
-    @When("the user enters {string} in the First Name field")
+    @And("the user enters {string} in the First Name field")
     public void userEntersFirstName(String expected) {
         WebElement firstname = driver.findElement(By.name("Forename"));
         firstname.sendKeys(expected);
@@ -56,7 +56,7 @@ public class stepDefinitions {
         assertEquals(expected, actual);
     }
 
-    @When("the user enters {string} in the Last Name field")
+    @And("the user enters {string} in the Last Name field")
     public void userEntersLastName(String expected) {
         WebElement lastname = driver.findElement(By.name("Surname"));
         lastname.sendKeys(expected);
@@ -64,7 +64,7 @@ public class stepDefinitions {
         assertEquals(expected, actual);
     }
 
-    @When("the user enters {string} in the Email fields")
+    @And("the user enters {string} in the Email fields")
     public void theUserEntersEmail(String email) {
         WebElement emailAdress = driver.findElement(By.cssSelector("#member_emailaddress"));
         WebElement confirmEmailAdress = driver.findElement(By.cssSelector("#member_confirmemailaddress"));
@@ -72,13 +72,13 @@ public class stepDefinitions {
         confirmEmailAdress.sendKeys(email);
     }
 
-    @When("the user enters {string} and {string} in the Password Fields")
+    @And("the user enters {string} and {string} in the Password Fields")
     public void theUserEntersPassword(String password, String password2) {
         driver.findElement(By.cssSelector("#signupunlicenced_password")).sendKeys(password);
         driver.findElement(By.cssSelector("#signupunlicenced_confirmpassword")).sendKeys(password2);
     }
 
-    @When("the user selects their {string} in the Role form")
+    @And("the user selects their {string} in the Role form")
     public void theUserSelectsTheirRole(String role) {
         //Creates an array with each role separated
         String[] roles = role.split(", ");
@@ -95,17 +95,17 @@ public class stepDefinitions {
 
     }
 
-    @When("the user accepts the Terms and Conditions")
+    @And("the user accepts the Terms and Conditions")
     public void theUserAcceptsTheTermsAndConditions() {
         driver.findElement(By.cssSelector("label[for='sign_up_25']")).click();
     }
 
-    @When("the user confirms age over 18")
+    @And("the user confirms age over 18")
     public void theUserConfirmsAgeOver18() {
         driver.findElement(By.cssSelector("label[for='sign_up_26']")).click();
     }
 
-    @When("the user checks their communication preferences {string}")
+    @And("the user checks their communication preferences {string}")
     public void theUserChecksTheir(String preferences) {
         WebElement marketingCheckbox = driver.findElement(By.cssSelector("label[for='sign_up_27']"));
         WebElement partnersCheckbox = driver.findElement(By.cssSelector("label[for='sign_up_28']"));
@@ -125,9 +125,13 @@ public class stepDefinitions {
     }
 
 
-    @When("the user accepts the Code of Ethics and Conduct")
-    public void theUserAcceptsTheCodeOfEthicsAndConduct() {
-        driver.findElement(By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']")).click();
+    @And("the user {string} the Code of Ethics and Conduct")
+    public void theUserAcceptsTheCodeOfEthicsAndConduct(String choice) {
+
+        if(choice.equals("accept")){
+            driver.findElement(By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']")).click();
+        }
+
     }
 
     @When("the user clicks on the Confirm and Join-button")
@@ -151,6 +155,10 @@ public class stepDefinitions {
             case "Password did not match":
                 assertTrue(driver.findElement(By.cssSelector("span[for='signupunlicenced_confirmpassword']")).isDisplayed());
                 break;
+            case "Code of Ethics and Conduct":
+                assertTrue(driver.findElement(By.cssSelector("span[for^='AgreeToCodeOfEthicsAndConduct']")).isDisplayed());
+                break;
+
         }
     }
 
