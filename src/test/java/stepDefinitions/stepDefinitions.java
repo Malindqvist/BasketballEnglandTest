@@ -132,7 +132,7 @@ public class stepDefinitions {
 
     @When("the user clicks on the Confirm and Join-button")
     public void theUserClicksOnTheConfirmAndJoinButton() {
-        //driver.findElement(By.cssSelector("input[name='join']")).click();
+        driver.findElement(By.cssSelector("input[name='join']")).click();
     }
 
     @Then("{string} should occur")
@@ -143,10 +143,10 @@ public class stepDefinitions {
 
     @And("if invalid the user should see the error message {string}")
     public void ifInvalidTheUserShouldSeeTheErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
         switch (errorMessage) {
             case "Last Name is required":
                 assertTrue(driver.findElement(By.cssSelector("span[for='member_lastname']")).isDisplayed());
-
                 break;
             case "Password did not match":
                 assertTrue(driver.findElement(By.cssSelector("span[for='signupunlicenced_confirmpassword']")).isDisplayed());
@@ -161,4 +161,5 @@ public class stepDefinitions {
 //        assertEquals(expected, actual);
         driver.quit();
     }
+
 }
