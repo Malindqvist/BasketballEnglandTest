@@ -3,7 +3,9 @@ package general;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import java.util.List;
 
 public class StepHelper {
@@ -13,12 +15,18 @@ public class StepHelper {
         this.driver = driver;
     }
 
+    private WebElement waitForElement(By selector){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(selector));
+    }
+
     public void enterText(By selector, String input) {
         driver.findElement(selector).sendKeys(input);
     }
 
     public void clickElement(By selector) {
-        driver.findElement(selector).click();
+        //Wait for element to be clickable
+        waitForElement(selector).click();
     }
 
     public void clickElements(By selector, String input) {

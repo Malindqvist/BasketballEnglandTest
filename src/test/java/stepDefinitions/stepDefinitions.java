@@ -10,17 +10,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class stepDefinitions {
     private WebDriver driver;
-    WebDriverWait wait;
     StepHelper stepHelper;
 
     @After
@@ -43,7 +38,7 @@ public class stepDefinitions {
     }
 
     @And("the user enters {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
-    public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String choice) {
+    public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String acceptsCoEaC) {
         stepHelper = new StepHelper(driver);
 
         if(email.contains("mailnesia")){
@@ -58,10 +53,11 @@ public class stepDefinitions {
         stepHelper.enterText(By.cssSelector("#signupunlicenced_password"), password);
         stepHelper.enterText(By.cssSelector("#signupunlicenced_confirmpassword"), passwordConfirmation);
         stepHelper.clickElements(By.cssSelector("label[for^='signup_basketballrole']"), role);
+        //Player x2
         stepHelper.clickElement(By.cssSelector("label[for='sign_up_25"));
         stepHelper.clickElement(By.cssSelector("label[for='sign_up_26"));
         stepHelper.clickComPrefs(comPrefs);
-        if(choice.equals("Accept")) {
+        if(acceptsCoEaC.equals("true")) {
             stepHelper.clickElement(By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']"));
         }
     }
@@ -98,9 +94,6 @@ public class stepDefinitions {
 
     @And("the user enters {string}, {string}, {string}")
     public void theUserEntersParentalInput(String parentFirstName, String parentLastName, String parentEmail) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("ParentForename")));
-
         if(parentEmail.contains("mailnesia")){
             parentEmail = System.currentTimeMillis() + "@" + parentEmail;
         }
@@ -109,7 +102,6 @@ public class stepDefinitions {
         stepHelper.enterText(By.name("ParentSurname"), parentLastName);
         stepHelper.enterText(By.name("ParentEmailAddress"), parentEmail);
         stepHelper.enterText(By.name("ParentConfirmEmailAddress"), parentEmail);
-
-
     }
+
 }
