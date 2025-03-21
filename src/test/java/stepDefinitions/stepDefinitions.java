@@ -45,6 +45,11 @@ public class stepDefinitions {
     @And("the user enters {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
     public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String choice) {
         stepHelper = new StepHelper(driver);
+
+        if(email.contains("mailnesia")){
+            email = System.currentTimeMillis() + "@" + email;
+        }
+
         stepHelper.enterText(By.cssSelector("#dp"), dateOfBirth);
         stepHelper.enterText(By.name("Forename"), firstName);
         stepHelper.enterText(By.name("Surname"), lastName);
@@ -96,9 +101,15 @@ public class stepDefinitions {
         wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("ParentForename")));
 
+        if(parentEmail.contains("mailnesia")){
+            parentEmail = System.currentTimeMillis() + "@" + parentEmail;
+        }
+
         stepHelper.enterText(By.name("ParentForename"), parentFirstName);
         stepHelper.enterText(By.name("ParentSurname"), parentLastName);
         stepHelper.enterText(By.name("ParentEmailAddress"), parentEmail);
         stepHelper.enterText(By.name("ParentConfirmEmailAddress"), parentEmail);
+
+
     }
 }
