@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 public class stepDefinitions {
     private WebDriver driver;
-    //StepHelper stepHelper;
 
     @After
     public void tearDown() {
