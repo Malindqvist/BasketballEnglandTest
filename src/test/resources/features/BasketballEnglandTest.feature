@@ -23,7 +23,7 @@ Feature: Basketball England Account Creation
       | browser | dateOfBirth | firstName | lastName   | email         | password | passwordConfirmation | role                               | comPrefs             | errorMessage               | acceptsCoEaC |
       | Chrome  | 02/12/2000  | Nils      |            | mailnesia.com | test123  | test123              | Coach, Sports science role         | Partners             | Last name is missing       | true         |
       | Firefox | 29/02/2000  | Erik      | Henriksson | mailnesia.com | test123  | test234              | Player, Player's relative/guardian | Marketing & Partners | Passwords do not match     | true         |
-      | Chrome  | 29/02/2000  | Jens      | Hansson    | mailnesia.com | test123  | test123              | Player                             | Marketing            | Code of Ethics and Conduct |              |
+      | Chrome  | 29/02/2000  | Jens      | Hansson    | mailnesia.com | test123  | test123              | Player, Player's relative/guardian | Marketing            | Code of Ethics and Conduct |              |
 
   Scenario Outline: Create an account with parental responsibility
     Given the user is using the browser "<browser>"

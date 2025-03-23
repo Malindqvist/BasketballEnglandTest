@@ -1,8 +1,10 @@
 package general;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,11 +35,15 @@ public class StepHelper {
         //Clicks on the choices
         for (String choice : choices) {
             for (WebElement element : elements) {
-                if (element.getText().trim().equalsIgnoreCase(choice.trim())) {
-                    System.out.println(choice.trim());
-                    element.click();
+                if (element.getText().equals(choice)) {
+                    if (driver instanceof FirefoxDriver) {
+                        //Used to be able to click "Player" and "Player's relative/guardian" in Firefox
+                        JavascriptExecutor executor = (JavascriptExecutor) driver;
+                        executor.executeScript("arguments[0].click();", element);
+                    } else {
+                        element.click();
+                    }
                 }
-
             }
         }
     }
