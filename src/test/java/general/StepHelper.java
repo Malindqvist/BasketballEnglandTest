@@ -61,8 +61,4 @@ public class StepHelper {
         }
     }
 
-    public static String randomizeEmailAddress(String email){
-        return System.currentTimeMillis() + "@" + email;
-    }
-
 }
