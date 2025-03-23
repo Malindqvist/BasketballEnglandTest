@@ -8,9 +8,9 @@ Feature: Basketball England Account Creation
     Then the account is created
 
     Examples:
-      | browser | dateOfBirth | firstName | lastName   | email         | password | passwordConfirmation | role                       | comPrefs             | acceptsCoEaC |
-      | Chrome  | 01/01/1930  | Lennart   | Lindqvist  | mailnesia.com | test123  | test123              | Fan, Coach, Player         | Marketing            | true         |
-      | Firefox | 02/12/2000  | Nils      | Östlund    | mailnesia.com | test123  | test123              | Coach, Sports science role | Partners             | true         |
+      | browser | dateOfBirth | firstName | lastName  | email         | password | passwordConfirmation | role                       | comPrefs  | acceptsCoEaC |
+      | Chrome  | 01/01/1930  | Lennart   | Lindqvist | mailnesia.com | test123  | test123              | Fan, Coach, Player         | Marketing | true         |
+      | Firefox | 02/12/2000  | Nils      | Östlund   | mailnesia.com | test123  | test123              | Coach, Sports science role | Partners  | true         |
 
   Scenario Outline: Create an account with invalid input
     Given the user is using the browser "<browser>"
@@ -34,7 +34,7 @@ Feature: Basketball England Account Creation
     Then the account is created
 
     Examples:
-      | browser | dateOfBirth | firstName | lastName   | email         | password | passwordConfirmation | role                       | comPrefs  | acceptsCoEaC  | parentFirstName | parentLastName | parentEmail   |
-      | Chrome  | 01/01/2012  | Lennart   | Lindqvist  | mailnesia.com | test123  | test123              | Fan, Coach, Player         | Marketing | true          | Agda            | Bengtsson      | mailnesia.com |
-      | Firefox | 02/12/2012  | Nils      | Östlund    | mailnesia.com | test123  | test123              | Coach, Sports science role | Partners  | true          | Henrik          | Nilsson        | mailnesia.com |
+      | browser | dateOfBirth | firstName | lastName  | email         | password | passwordConfirmation | role                       | comPrefs  | acceptsCoEaC | parentFirstName | parentLastName | parentEmail   |
+      | Chrome  | 01/01/2012  | Lennart   | Lindqvist | mailnesia.com | test123  | test123              | Fan, Coach, Player         | Marketing | true         | Agda            | Bengtsson      | mailnesia.com |
+      | Firefox | 02/12/2012  | Nils      | Östlund   | mailnesia.com | test123  | test123              | Coach, Sports science role | Partners  | true         | Henrik          | Nilsson        | mailnesia.com |
 

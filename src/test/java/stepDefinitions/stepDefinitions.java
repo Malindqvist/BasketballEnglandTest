@@ -19,7 +19,9 @@ public class stepDefinitions {
 
     @After
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Given("the user is using the browser {string}")
@@ -28,6 +30,8 @@ public class stepDefinitions {
             driver = new ChromeDriver();
         } else if (browser.equals("Firefox")) {
             driver = new FirefoxDriver();
+        } else {
+            throw new IllegalArgumentException("Missing driver for " + browser);
         }
     }
 
@@ -37,26 +41,24 @@ public class stepDefinitions {
     }
 
     @And("the user enters {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
-    public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String acceptsCoEaC) {
+    public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation, String role, String comPrefs, String acceptsCoEaC) {
         //Randomize email address to avoid failed tests caused by reused test data
-        if(email.contains("mailnesia")){
+        if (email.contains("mailnesia")) {
             email = StepHelper.randomizeEmailAddress(email);
         }
 
         StepHelper.enterText(driver, By.cssSelector("#dp"), dateOfBirth);
         StepHelper.enterText(driver, By.name("Forename"), firstName);
         StepHelper.enterText(driver, By.name("Surname"), lastName);
-
         StepHelper.enterText(driver, By.cssSelector("#member_emailaddress"), email);
         StepHelper.enterText(driver, By.cssSelector("#member_confirmemailaddress"), email);
         StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_password"), password);
         StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_confirmpassword"), passwordConfirmation);
         StepHelper.clickElements(driver, By.cssSelector("label[for^='signup_basketballrole']"), role);
-        //Player x2
         StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_25"));
         StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_26"));
         StepHelper.clickComPrefs(driver, comPrefs);
-        if(acceptsCoEaC.equals("true")) {
+        if (acceptsCoEaC.equals("true")) {
             StepHelper.clickElement(driver, By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']"));
         }
     }
@@ -94,7 +96,7 @@ public class stepDefinitions {
     @And("the user enters {string}, {string}, {string}")
     public void theUserEntersParentalInput(String parentFirstName, String parentLastName, String parentEmail) {
         //Randomize email address to avoid failed tests caused by reused test data
-        if(parentEmail.contains("mailnesia")){
+        if (parentEmail.contains("mailnesia")) {
             parentEmail = StepHelper.randomizeEmailAddress(parentEmail);
         }
 
