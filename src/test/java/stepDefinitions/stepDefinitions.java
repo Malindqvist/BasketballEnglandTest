@@ -38,6 +38,7 @@ public class stepDefinitions {
 
     @And("the user enters {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
     public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String acceptsCoEaC) {
+
         if(email.contains("mailnesia")){
             email = System.currentTimeMillis() + "@" + email;
         }
