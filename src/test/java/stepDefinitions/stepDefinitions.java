@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 public class stepDefinitions {
     private WebDriver driver;
-    StepHelper stepHelper;
 
     @After
     public void tearDown() {
@@ -39,32 +38,31 @@ public class stepDefinitions {
 
     @And("the user enters {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
     public void theUserEntersInput(String dateOfBirth, String firstName, String lastName, String email, String password, String passwordConfirmation,String role, String comPrefs, String acceptsCoEaC) {
-        stepHelper = new StepHelper(driver);
 
         if(email.contains("mailnesia")){
             email = System.currentTimeMillis() + "@" + email;
         }
 
-        stepHelper.enterText(By.cssSelector("#dp"), dateOfBirth);
-        stepHelper.enterText(By.name("Forename"), firstName);
-        stepHelper.enterText(By.name("Surname"), lastName);
-        stepHelper.enterText(By.cssSelector("#member_emailaddress"), email);
-        stepHelper.enterText(By.cssSelector("#member_confirmemailaddress"), email);
-        stepHelper.enterText(By.cssSelector("#signupunlicenced_password"), password);
-        stepHelper.enterText(By.cssSelector("#signupunlicenced_confirmpassword"), passwordConfirmation);
-        stepHelper.clickElements(By.cssSelector("label[for^='signup_basketballrole']"), role);
+        StepHelper.enterText(driver, By.cssSelector("#dp"), dateOfBirth);
+        StepHelper.enterText(driver, By.name("Forename"), firstName);
+        StepHelper.enterText(driver, By.name("Surname"), lastName);
+        StepHelper.enterText(driver, By.cssSelector("#member_emailaddress"), email);
+        StepHelper.enterText(driver, By.cssSelector("#member_confirmemailaddress"), email);
+        StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_password"), password);
+        StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_confirmpassword"), passwordConfirmation);
+        StepHelper.clickElements(driver, By.cssSelector("label[for^='signup_basketballrole']"), role);
         //Player x2
-        stepHelper.clickElement(By.cssSelector("label[for='sign_up_25"));
-        stepHelper.clickElement(By.cssSelector("label[for='sign_up_26"));
-        stepHelper.clickComPrefs(comPrefs);
+        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_25"));
+        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_26"));
+        StepHelper.clickComPrefs(driver, comPrefs);
         if(acceptsCoEaC.equals("true")) {
-            stepHelper.clickElement(By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']"));
+            StepHelper.clickElement(driver, By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']"));
         }
     }
 
     @When("the user clicks on the Confirm and Join-button")
     public void theUserClicksOnTheConfirmAndJoinButton() {
-        stepHelper.clickElement(By.cssSelector("input[name='join']"));
+        StepHelper.clickElement(driver, By.cssSelector("input[name='join']"));
     }
 
     @Then("the account is created")
@@ -98,10 +96,10 @@ public class stepDefinitions {
             parentEmail = System.currentTimeMillis() + "@" + parentEmail;
         }
 
-        stepHelper.enterText(By.name("ParentForename"), parentFirstName);
-        stepHelper.enterText(By.name("ParentSurname"), parentLastName);
-        stepHelper.enterText(By.name("ParentEmailAddress"), parentEmail);
-        stepHelper.enterText(By.name("ParentConfirmEmailAddress"), parentEmail);
+        StepHelper.enterText(driver, By.name("ParentForename"), parentFirstName);
+        StepHelper.enterText(driver, By.name("ParentSurname"), parentLastName);
+        StepHelper.enterText(driver, By.name("ParentEmailAddress"), parentEmail);
+        StepHelper.enterText(driver, By.name("ParentConfirmEmailAddress"), parentEmail);
     }
 
 }

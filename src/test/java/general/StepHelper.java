@@ -9,27 +9,23 @@ import java.time.Duration;
 import java.util.List;
 
 public class StepHelper {
-    WebDriver driver;
 
-    public StepHelper(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    private WebElement waitForElement(By selector){
+    private static WebElement waitForElement(WebDriver driver, By selector){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
-    public void enterText(By selector, String input) {
+    public static void enterText(WebDriver driver, By selector, String input) {
         driver.findElement(selector).sendKeys(input);
     }
 
-    public void clickElement(By selector) {
+    public static void clickElement(WebDriver driver, By selector) {
         //Wait for element to be clickable
-        waitForElement(selector).click();
+        waitForElement(driver, selector).click();
     }
 
-    public void clickElements(By selector, String input) {
+    public static void clickElements(WebDriver driver, By selector, String input) {
+        //Used to click multiple roles
         //Creates an array with each choice separated
         if (input.contains(",")) {
             String[] choices = input.split(", ");
@@ -47,7 +43,7 @@ public class StepHelper {
         }
     }
 
-    public void clickComPrefs(String comPrefs) {
+    public static void clickComPrefs(WebDriver driver, String comPrefs) {
         WebElement marketingCheckbox = driver.findElement(By.cssSelector("label[for='sign_up_27']"));
         WebElement partnersCheckbox = driver.findElement(By.cssSelector("label[for='sign_up_28']"));
 
