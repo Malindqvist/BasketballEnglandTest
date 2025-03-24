@@ -5,7 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.After;
+import io.cucumber.java.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +18,7 @@ public class stepDefinitions {
     private WebDriver driver;
 
     @After
+    //Close the driver after the test is completed
     public void tearDown() {
         if (driver != null) {
             driver.quit();
@@ -25,6 +26,7 @@ public class stepDefinitions {
     }
 
     @Given("the user is using the browser {string}")
+    //Create a driver of the type specified in the Scenario Outline
     public void userBrowser(String browser) {
         if (browser.equals("Chrome")) {
             driver = new ChromeDriver();
@@ -47,6 +49,7 @@ public class stepDefinitions {
             email = StepHelper.randomizeEmailAddress(email);
         }
 
+        //Enter user information
         StepHelper.enterText(driver, By.cssSelector("#dp"), dateOfBirth);
         StepHelper.enterText(driver, By.name("Forename"), firstName);
         StepHelper.enterText(driver, By.name("Surname"), lastName);
@@ -54,10 +57,20 @@ public class stepDefinitions {
         StepHelper.enterText(driver, By.cssSelector("#member_confirmemailaddress"), email);
         StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_password"), password);
         StepHelper.enterText(driver, By.cssSelector("#signupunlicenced_confirmpassword"), passwordConfirmation);
+
+        //Click on roles
         StepHelper.clickElements(driver, By.cssSelector("label[for^='signup_basketballrole']"), role);
-        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_25"));
-        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_26"));
+
+        //Accept Terms and Conditions
+        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_25']"));
+
+        //Confirm age over 18
+        StepHelper.clickElement(driver, By.cssSelector("label[for='sign_up_26']"));
+
+        //Click on communication preferences
         StepHelper.clickComPrefs(driver, comPrefs);
+
+        //Accept Code of Ethics and Conduct if acceptsCoEaC is true
         if (acceptsCoEaC.equals("true")) {
             StepHelper.clickElement(driver, By.cssSelector("label[for='fanmembersignup_agreetocodeofethicsandconduct']"));
         }
@@ -77,6 +90,7 @@ public class stepDefinitions {
 
     @And("the user should see the error message {string}")
     public void theUserShouldSeeErrorMessage(String errorMessage) {
+        //Assert that the correct error message is shown
         switch (errorMessage) {
             case "Last Name is missing":
                 assertTrue(driver.findElement(By.cssSelector("span[for='member_lastname']")).isDisplayed());
@@ -100,6 +114,7 @@ public class stepDefinitions {
             parentEmail = StepHelper.randomizeEmailAddress(parentEmail);
         }
 
+        //Enter parent/guardian information
         StepHelper.enterText(driver, By.name("ParentForename"), parentFirstName);
         StepHelper.enterText(driver, By.name("ParentSurname"), parentLastName);
         StepHelper.enterText(driver, By.name("ParentEmailAddress"), parentEmail);

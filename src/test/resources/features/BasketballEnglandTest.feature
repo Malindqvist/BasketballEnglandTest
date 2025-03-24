@@ -19,6 +19,9 @@ Feature: Basketball England Account Creation
     When the user clicks on the Confirm and Join-button
     Then the user should see the error message "<errorMessage>"
 
+    # Example 1: Missing last name
+    # Example 2: Passwords are not matching
+    # Example 3: Code of Ethics and Conduct not accepted
     Examples:
       | browser | dateOfBirth | firstName | lastName   | email         | password | passwordConfirmation | role                               | comPrefs             | errorMessage               | acceptsCoEaC |
       | Chrome  | 02/12/2000  | Nils      |            | mailnesia.com | test123  | test123              | Coach, Sports science role         | Partners             | Last name is missing       | true         |
